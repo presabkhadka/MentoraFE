@@ -1,4 +1,13 @@
-import { Notebook, Plus, Share, Trash } from "lucide-react";
+import {
+  Copy,
+  CopyCheck,
+  Notebook,
+  NotebookIcon,
+  NotebookTabs,
+  Plus,
+  Share,
+  Trash,
+} from "lucide-react";
 import Sidebar from "../../components/Sidebar";
 import React, { useEffect, useState } from "react";
 import axiosInstace from "../../api/axiosInstance";
@@ -196,58 +205,65 @@ export default function Home() {
             </Dialog>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 overflow-y-scroll">
-          {content.map((cnt) => (
-            <div
-              key={cnt._id}
-              className="flex flex-col h-fit gap-6 border border-slate-300 p-4 rounded-lg shadow-lg"
-            >
-              <div className="flex justify-between items-center">
-                <div className="flex gap-2">
-                  <Notebook color="gray" />
-                  <p className="font-semibold text-xl">Project Ideas</p>
+        {content.length == 0 ? (
+          <div className="flex  flex-col justify-center items-center h-full">
+            <NotebookTabs size={100} color="gray" />
+            <h1 className="text-4xl text-slate-500">No contents added as of now</h1>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 overflow-y-scroll">
+            {content.map((cnt) => (
+              <div
+                key={cnt._id}
+                className="flex flex-col h-fit gap-6 border border-slate-300 p-4 rounded-lg shadow-lg"
+              >
+                <div className="flex justify-between items-center">
+                  <div className="flex gap-2">
+                    <Notebook color="gray" />
+                    <p className="font-semibold text-xl">Project Ideas</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <button className="hover:cursor-pointer">
+                      <Share color="gray" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleDelete(cnt._id);
+                      }}
+                      className="hover:cursor-pointer"
+                    >
+                      <Trash color="gray" />
+                    </button>
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <button className="hover:cursor-pointer">
-                    <Share color="gray" />
-                  </button>
-                  <button
-                    onClick={() => {
-                      handleDelete(cnt._id);
-                    }}
-                    className="hover:cursor-pointer"
-                  >
-                    <Trash color="gray" />
-                  </button>
-                </div>
+                <h2 className="text-2xl font-bold">{cnt.title}</h2>
+                {cnt.type === "youtube" && (
+                  <iframe
+                    width="100%"
+                    height="315"
+                    className="rounded-lg"
+                    src={cnt.link.replace("watch?v=", "embed/")}
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                )}
+
+                {cnt.type === "x" && (
+                  <div>
+                    <blockquote className="twitter-tweet">
+                      <a href={cnt.link}></a>
+                    </blockquote>
+                  </div>
+                )}
+
+                <p className="bg-blue-100 text-purple-500 w-fit py-1 px-2 rounded-xl">
+                  #{cnt.tags.title}
+                </p>
               </div>
-              <h2 className="text-2xl font-bold">{cnt.title}</h2>
-              {cnt.type === "youtube" && (
-                <iframe
-                  width="100%"
-                  height="315"
-                  className="rounded-lg"
-                  src={cnt.link.replace("watch?v=", "embed/")}
-                  title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              )}
-
-              {cnt.type === "x" && (
-                <div>
-                  <blockquote className="twitter-tweet">
-                    <a href={cnt.link}></a>
-                  </blockquote>
-                </div>
-              )}
-
-              <p className="bg-blue-100 text-purple-500 w-fit py-1 px-2 rounded-xl">
-                #{cnt.tags.title}
-              </p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
