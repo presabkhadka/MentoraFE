@@ -7,7 +7,7 @@ let axiosInstace: AxiosInstance = axios.create({
 });
 
 axiosInstace.interceptors.request.use((config) => {
-  let token = localStorage.getItem("Authorizaion")?.split(" ")[1];
+  let token = localStorage.getItem("Authorization")?.split(" ")[1];
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

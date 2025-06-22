@@ -1,4 +1,4 @@
-import { Bird, Brain, Link, Notebook, Tag, Video } from "lucide-react";
+import { Bird, Brain, Link, LogOut, Notebook, Tag, Video } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
@@ -9,9 +9,9 @@ export default function Sidebar() {
     { title: "Links", icon: <Link />, path: "/user/links" },
     { title: "Tags", icon: <Tag />, path: "/user/tags" },
   ];
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   return (
-    <div className="h-screen w-[64px] md:w-[100%] flex flex-col justify-between shadow-lg border-r p-4">
+    <div className="h-screen w-[64px] md:w-[100%] flex flex-col justify-between border-r border-r-slate-200 shadow-lg p-4">
       <div className="flex gap-6 flex-col">
         <div className="flex items-center gap-2">
           <Brain size={32} color="blue" />
@@ -37,10 +37,15 @@ export default function Sidebar() {
           ))}
         </div>
       </div>
-      <button className="border px-4 py-2 rounded-lg" onClick={()=>{
-        localStorage.removeItem("Authorization")
-navigate("/login")
-      }}>Logout</button>
+      <button
+        className="border border-slate-300 hover:border-slate-400 px-4 py-2 rounded-lg flex justify-between hover:cursor-pointer hover:text-red-500"
+        onClick={() => {
+          localStorage.removeItem("Authorization");
+          navigate("/login");
+        }}
+      >
+        Logout <LogOut color="red" />
+      </button>
     </div>
   );
 }
