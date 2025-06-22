@@ -1,13 +1,12 @@
-import { Bird, Brain, Link, LogOut, Notebook, Tag, Video } from "lucide-react";
+import { Bird, Brain, LogOut, Notebook, Video } from "lucide-react";
+import toast from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
   let navOptions = [
+    { title: "Contents", icon: <Notebook />, path: "/user/home" },
     { title: "Tweets", icon: <Bird />, path: "/user/tweets" },
     { title: "Videos", icon: <Video />, path: "/user/videos" },
-    { title: "Contents", icon: <Notebook />, path: "/user/contents" },
-    { title: "Links", icon: <Link />, path: "/user/links" },
-    { title: "Tags", icon: <Tag />, path: "/user/tags" },
   ];
   let navigate = useNavigate();
   return (
@@ -19,12 +18,13 @@ export default function Sidebar() {
         </div>
         <div className="flex flex-col gap-4">
           {navOptions.map((menu, index) => (
-            <div key={index}>
+            <div key={index} className="border border-slate-300 px-4 py-2 rounded-lg hover:border-slate-400">
               <NavLink
+                key={menu.path}
                 to={menu.path}
                 className={({ isActive }) =>
                   isActive
-                    ? "text-lg hover:bg-blue-400 active:text-green-500"
+                    ? "text-lg hover:bg-blue-400 text-green-500 hover:text-green-400"
                     : "text-lg hover:text-slate-500"
                 }
               >
@@ -42,6 +42,7 @@ export default function Sidebar() {
         onClick={() => {
           localStorage.removeItem("Authorization");
           navigate("/login");
+          toast.success("Logged out successfully");
         }}
       >
         Logout <LogOut color="red" />
