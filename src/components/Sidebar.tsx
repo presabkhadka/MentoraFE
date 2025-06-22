@@ -5,8 +5,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 export default function Sidebar() {
   let navOptions = [
     { title: "Contents", icon: <Notebook />, path: "/user/home" },
-    { title: "Tweets", icon: <Bird />, path: "/user/tweets" },
-    { title: "Videos", icon: <Video />, path: "/user/videos" },
+    { title: "Tweets", icon: <Bird />, path: "/user/x" },
+    { title: "Videos", icon: <Video />, path: "/user/youtube" },
   ];
   let navigate = useNavigate();
   return (
@@ -18,7 +18,10 @@ export default function Sidebar() {
         </div>
         <div className="flex flex-col gap-4">
           {navOptions.map((menu, index) => (
-            <div key={index} className="border border-slate-300 px-4 py-2 rounded-lg hover:border-slate-400">
+            <div
+              key={index}
+              className="border border-slate-300 px-4 py-2 rounded-lg hover:border-slate-400"
+            >
               <NavLink
                 key={menu.path}
                 to={menu.path}

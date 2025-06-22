@@ -208,7 +208,9 @@ export default function Home() {
         {content.length == 0 ? (
           <div className="flex  flex-col justify-center items-center h-full">
             <NotebookTabs size={100} color="gray" />
-            <h1 className="text-4xl text-slate-500">No contents added as of now</h1>
+            <h1 className="text-4xl text-slate-500">
+              No contents added as of now
+            </h1>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 overflow-y-scroll">

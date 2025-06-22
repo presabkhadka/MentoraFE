@@ -4,6 +4,8 @@ import AuthGuard from "./components/AuthGuard";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import { Toaster } from "react-hot-toast";
+import X from "./pages/view/X";
+import Youtube from "./pages/view/Youtube";
 
 export default function App() {
   return (
@@ -15,7 +17,11 @@ export default function App() {
           {
             path: "/user",
             element: <AuthGuard />,
-            children: [{ path: "/user/home", element: <Home /> }],
+            children: [
+              { path: "/user/home", element: <Home /> },
+              { path: "/user/x", element: <X /> },
+              { path: "/user/youtube", element: <Youtube /> },
+            ],
           },
         ])}
       ></RouterProvider>
