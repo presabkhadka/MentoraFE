@@ -1,4 +1,5 @@
 import {
+  LoaderIcon,
   Notebook,
   NotebookTabs,
   Plus,
@@ -39,6 +40,7 @@ export default function Home() {
   let [link, setLink] = useState<string>("");
   let [tags, setTags] = useState<string>("");
   let [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  let [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     let fetchContent = async () => {
@@ -69,6 +71,7 @@ export default function Home() {
 
   let handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await axiosInstace.post("/user/add-content", {
         title,
@@ -88,6 +91,8 @@ export default function Home() {
       );
     } catch (error) {
       toast.error("Something went wrong while adding the content");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -195,8 +200,15 @@ export default function Home() {
                             }}
                           />
                         </div>
-                        <button className="border border-slate-300 rounded-lg px-4 py-2 w-fit self-end bg-green-500 text-white hover:cursor-pointer hover:bg-green-400 hover:scale-105 hover:font-bold">
-                          Add Content
+                        <button
+                          className="border border-slate-300 rounded-lg px-4 py-2 w-fit self-end bg-green-500 text-white hover:cursor-pointer hover:bg-green-400 hover:scale-105 hover:font-bold disabled:cursor-not-allowed disabled:opacity-45"
+                          disabled={loading}
+                        >
+                          {loading ? (
+                            <LoaderIcon className="animate-spin" />
+                          ) : (
+                            "Add Content"
+                          )}
                         </button>
                       </div>
                     </form>

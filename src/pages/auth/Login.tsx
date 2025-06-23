@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Eye, EyeClosed } from "lucide-react";
+import { Eye, EyeClosed, LoaderIcon } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ export default function Login() {
   let [isVisible, setIsVisible] = useState<boolean>(false);
   let [email, setEmail] = useState<string>("");
   let [password, setPassword] = useState<string>("");
+  let [loading, setLoading] = useState<boolean>(false);
   let navigate = useNavigate();
 
   let toggleVisibility = () => {
@@ -16,6 +17,7 @@ export default function Login() {
 
   let handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     try {
       let api = import.meta.env.VITE_BASE_URL;
       let response = await axios.post(`${api}/user/login`, {
@@ -33,6 +35,8 @@ export default function Login() {
       if (error instanceof Error) {
         toast.error(error.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -89,8 +93,13 @@ export default function Login() {
                 Resigter
               </span>
             </p>
-            <button className="border border-slate-300 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-300 to-green-300 text-white hover:scale-105 hover:cursor-pointer">
-              Login
+            <button
+              className={`border border-slate-300 flex justify-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-300 to-green-300 text-white hover:scale-105 hover:cursor-pointer transition-all duration-200 ${
+                loading ? "opacity-45 cursor-not-allowed hover:scale-100" : ""
+              }`}
+              disabled={loading}
+            >
+              {loading ? <LoaderIcon className="animate-spin"/> : "Login"}
             </button>
           </div>
         </form>
