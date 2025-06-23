@@ -247,7 +247,7 @@ export default function Home() {
                 )}
 
                 {cnt.type === "x" && (
-                  <a href={cnt.link} target="_blank">
+                  <a href={cnt.link} target="_blank" className="text-lg text-blue-500 underline">
                     Go to link
                   </a>
                 )}
