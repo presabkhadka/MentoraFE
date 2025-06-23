@@ -25,7 +25,7 @@ export default function Home() {
     userId: string;
   }
 
-  type Type = "youtube" | "x";
+  type Type = "youtube" | "x" | "article";
 
   let [content, setContent] = useState<Content[]>([]);
   let [title, setTitle] = useState<string>("");
@@ -54,7 +54,7 @@ export default function Home() {
     try {
       await axiosInstace.delete(`/user/delete-content/${id}`);
       toast.success(
-        "Content delted successfully, Wait for changes to be applied"
+        "Content deleted successfully, Wait for changes to be applied"
       );
     } catch (error) {
       toast.error("Something went wrong while deleting the content");
@@ -70,6 +70,8 @@ export default function Home() {
         tags,
         type: types,
       });
+      console.log(types);
+
       setIsDialogOpen(false);
       setTitle("");
       setLink("");
@@ -152,9 +154,12 @@ export default function Home() {
                               setTypes(value);
                             }}
                           >
-                            <option value="#">Select your content type</option>
+                            <option value="" disabled>
+                              Select your content type
+                            </option>
                             <option value="youtube">youtube</option>
                             <option value="x">x</option>
+                            <option value="article">article</option>
                           </select>
                         </div>
                         <div className="flex gap-2 items-center">
@@ -211,9 +216,9 @@ export default function Home() {
                 className="flex flex-col h-fit gap-6 border border-slate-300 p-4 rounded-lg shadow-lg"
               >
                 <div className="flex justify-between items-center">
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 items-center">
                     <Notebook color="gray" />
-                    <p className="font-semibold text-xl">Project Ideas</p>
+                    <p className="font-semibold text-xl">Contents</p>
                   </div>
                   <div className="flex gap-2">
                     <button className="hover:cursor-pointer">
@@ -248,6 +253,12 @@ export default function Home() {
                       <a href={cnt.link}></a>
                     </blockquote>
                   </div>
+                )}
+
+                {cnt.type === "article" && (
+                  <a href={cnt.link} target="_blank">
+                    Go to link
+                  </a>
                 )}
 
                 <p className="bg-blue-100 text-purple-500 w-fit py-1 px-2 rounded-xl">
