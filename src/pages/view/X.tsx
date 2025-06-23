@@ -18,10 +18,9 @@ export default function X() {
   }
 
   let [content, setContent] = useState<Content[]>([]);
-  let [loading, setLoading] = useState<boolean>(false);
   let [deletingId, setDeletingId] = useState<string | null>(null);
 
-  useEffect(() => {
+useEffect(() => {
     let fetchContent = async () => {
       try {
         let response = await axiosInstace.get("/user/x-content");
