@@ -1,4 +1,4 @@
-import { Eye, EyeClosed } from "lucide-react";
+import { Eye, EyeClosed, LoaderIcon } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ export default function Signup() {
   let [email, setEmail] = useState<string>("");
   let [password, setPassword] = useState<string>("");
   let [isVisible, setIsVisible] = useState<boolean>(false);
+  let [loading, setLoading] = useState<boolean>(false);
   let navigate = useNavigate();
 
   let toggleVisibility = () => {
@@ -17,20 +18,24 @@ export default function Signup() {
 
   let handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!username || username.length < 3) {
       toast.error("Username must be at least 3 characters");
+      setLoading(false);
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !emailRegex.test(email)) {
       toast.error("Please enter a valid email");
+      setLoading(false);
       return;
     }
 
     if (!password || password.length < 6) {
       toast.error("Password must be at least 6 characters");
+      setLoading(false);
       return;
     }
     try {
@@ -47,6 +52,8 @@ export default function Signup() {
       if (error instanceof Error) {
         toast.error(error.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -115,14 +122,24 @@ export default function Signup() {
               <span
                 className="text-blue-300 font-semibold underline hover:cursor-pointer"
                 onClick={() => {
-                  navigate("/login");
+                  navigate("/");
                 }}
               >
                 Login
               </span>
             </p>
-            <button className="px-4 py-2 bg-gradient-to-r from-blue-300 to-green-300 rounded-lg text-white hover:cursor-pointer hover:scale-105">
-              Signup
+            <button
+              className={`px-4 py-2 rounded-lg text-white font-bold flex justify-center ${
+                loading
+                  ? "bg-blue-500 cursor-not-allowed opacity-45"
+                  : "bg-blue-300 hover:cursor-pointer hover:bg-blue-400 hover:scale-105 transition-all"
+              }`}
+            >
+              {loading ? (
+                <LoaderIcon className="animate-spin transition-all" />
+              ) : (
+                "Signup"
+              )}
             </button>
           </div>
         </form>

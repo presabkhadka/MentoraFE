@@ -41,6 +41,7 @@ export default function Home() {
   let [tags, setTags] = useState<string>("");
   let [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   let [loading, setLoading] = useState<boolean>(false);
+  let [deletingId, setDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
     let fetchContent = async () => {
@@ -59,6 +60,7 @@ export default function Home() {
   }, []);
 
   let handleDelete = async (id: string) => {
+    setDeletingId(id);
     try {
       await axiosInstace.delete(`/user/delete-content/${id}`);
       toast.success(
@@ -66,6 +68,8 @@ export default function Home() {
       );
     } catch (error) {
       toast.error("Something went wrong while deleting the content");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -103,11 +107,11 @@ export default function Home() {
       </div>
       <div className="col-span-10 p-6 flex flex-col gap-12 h-full overflow-hidden">
         <div className="flex justify-between items-center ">
-          <h1 className="text-3xl font-bold">All Notes</h1>
+          <h1 className="text-3xl font-bold">All Contents</h1>
           <div className="flex gap-2 items-center">
             <Dialog>
               <DialogTrigger className="px-4 py-2 rounded-lg bg-blue-100 text-purple-500 flex gap-2 items-center text-lg hover:cursor-pointer">
-                <Share /> Share Brain
+                <Share /> Share Contents
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
@@ -201,7 +205,11 @@ export default function Home() {
                           />
                         </div>
                         <button
-                          className="border border-slate-300 rounded-lg px-4 py-2 w-fit self-end bg-green-500 text-white hover:cursor-pointer hover:bg-green-400 hover:scale-105 hover:font-bold disabled:cursor-not-allowed disabled:opacity-45"
+                          className={`border border-slate-300 rounded-lg px-4 py-2 w-fit self-end  text-white font-bold ${
+                            loading
+                              ? "cursor-not-allowed opacity-45 bg-green-500"
+                              : "bg-green-500 hover:bg-green-400 hover:scale-105 hover:cursor-pointer"
+                          }`}
                           disabled={loading}
                         >
                           {loading ? (
@@ -221,8 +229,9 @@ export default function Home() {
         {content.length == 0 ? (
           <div className="flex  flex-col justify-center items-center h-full">
             <NotebookTabs size={100} color="gray" />
-            <h1 className="text-4xl text-slate-500">
-              No contents added as of now
+            <h1 className="text-4xl text-slate-500 flex gap-2 items-center">
+              Loading Contents
+              <LoaderIcon className="animate-spin transition-all" />
             </h1>
           </div>
         ) : (
@@ -247,7 +256,11 @@ export default function Home() {
                       }}
                       className="hover:cursor-pointer"
                     >
-                      <Trash color="gray" />
+                      {deletingId === cnt._id ? (
+                        <LoaderIcon className="animate-spin transition-all" />
+                      ) : (
+                        <Trash color="gray" />
+                      )}
                     </button>
                   </div>
                 </div>

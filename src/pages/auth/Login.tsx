@@ -94,12 +94,16 @@ export default function Login() {
               </span>
             </p>
             <button
-              className={`border border-slate-300 flex justify-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-300 to-green-300 text-white hover:scale-105 hover:cursor-pointer transition-all duration-200 ${
-                loading ? "opacity-45 cursor-not-allowed hover:scale-100" : ""
-              }`}
+              className={`border border-slate-300 flex justify-center px-4 py-2 rounded-lg text-white transition-all duration-200 
+    ${
+      loading
+        ? "bg-blue-300 opacity-45 cursor-not-allowed"
+        : "bg-blue-300 hover:bg-blue-400 hover:cursor-pointer hover:scale-105 transition-all"
+    }
+  `}
               disabled={loading}
             >
-              {loading ? <LoaderIcon className="animate-spin"/> : "Login"}
+              {loading ? <LoaderIcon className="animate-spin" /> : "Login"}
             </button>
           </div>
         </form>

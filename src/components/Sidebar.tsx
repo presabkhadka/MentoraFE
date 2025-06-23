@@ -1,11 +1,11 @@
-import { Bird, Brain, LogOut, Notebook, Video } from "lucide-react";
+import { Brain, Link, LogOut, Notebook, Video } from "lucide-react";
 import toast from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
   let navOptions = [
     { title: "Contents", icon: <Notebook />, path: "/user/home" },
-    { title: "Tweets", icon: <Bird />, path: "/user/x" },
+    { title: "URLs", icon: <Link />, path: "/user/x" },
     { title: "Videos", icon: <Video />, path: "/user/youtube" },
   ];
   let navigate = useNavigate();
