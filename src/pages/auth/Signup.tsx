@@ -42,7 +42,7 @@ export default function Signup() {
       });
 
       toast.success("Signup successfull");
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);

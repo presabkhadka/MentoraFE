@@ -44,7 +44,7 @@ export default function Sidebar() {
         className="border border-slate-300 hover:border-slate-400 px-4 py-2 rounded-lg flex justify-between hover:cursor-pointer hover:text-red-500"
         onClick={() => {
           localStorage.removeItem("Authorization");
-          navigate("/login");
+          navigate("/");
           toast.success("Logged out successfully");
         }}
       >
