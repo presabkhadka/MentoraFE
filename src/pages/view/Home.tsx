@@ -1,5 +1,4 @@
 import {
-  MoveRight,
   Notebook,
   NotebookTabs,
   Plus,
