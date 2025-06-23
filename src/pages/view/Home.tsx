@@ -157,9 +157,8 @@ export default function Home() {
                             <option value="" disabled>
                               Select your content type
                             </option>
-                            <option value="youtube">youtube</option>
-                            <option value="x">x</option>
-                            <option value="article">article</option>
+                            <option value="youtube">Youtube</option>
+                            <option value="x">Links</option>
                           </select>
                         </div>
                         <div className="flex gap-2 items-center">
@@ -248,14 +247,6 @@ export default function Home() {
                 )}
 
                 {cnt.type === "x" && (
-                  <div>
-                    <blockquote className="twitter-tweet">
-                      <a href={cnt.link}></a>
-                    </blockquote>
-                  </div>
-                )}
-
-                {cnt.type === "article" && (
                   <a href={cnt.link} target="_blank">
                     Go to link
                   </a>
