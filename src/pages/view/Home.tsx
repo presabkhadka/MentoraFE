@@ -1,4 +1,11 @@
-import { Notebook, NotebookTabs, Plus, Share, Trash } from "lucide-react";
+import {
+  MoveRight,
+  Notebook,
+  NotebookTabs,
+  Plus,
+  Share,
+  Trash,
+} from "lucide-react";
 import Sidebar from "../../components/Sidebar";
 import React, { useEffect, useState } from "react";
 import axiosInstace from "../../api/axiosInstance";
@@ -212,7 +219,7 @@ export default function Home() {
             {content.map((cnt) => (
               <div
                 key={cnt._id}
-                className="flex flex-col h-fit gap-6 border border-slate-300 p-4 rounded-lg shadow-lg"
+                className="flex flex-col gap-6 border border-slate-300 p-4 rounded-lg shadow-lg"
               >
                 <div className="flex justify-between items-center">
                   <div className="flex gap-2 items-center">
@@ -247,7 +254,11 @@ export default function Home() {
                 )}
 
                 {cnt.type === "x" && (
-                  <a href={cnt.link} target="_blank" className="text-lg text-blue-500 underline">
+                  <a
+                    href={cnt.link}
+                    target="_blank"
+                    className="text-2xl text-blue-500 underline h-[315px] flex justify-center items-center"
+                  >
                     Go to link
                   </a>
                 )}
