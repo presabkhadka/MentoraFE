@@ -1,13 +1,4 @@
-import {
-  Copy,
-  CopyCheck,
-  Notebook,
-  NotebookIcon,
-  NotebookTabs,
-  Plus,
-  Share,
-  Trash,
-} from "lucide-react";
+import { Notebook, NotebookTabs, Plus, Share, Trash } from "lucide-react";
 import Sidebar from "../../components/Sidebar";
 import React, { useEffect, useState } from "react";
 import axiosInstace from "../../api/axiosInstance";
