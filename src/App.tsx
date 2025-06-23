@@ -12,7 +12,7 @@ export default function App() {
     <>
       <RouterProvider
         router={createBrowserRouter([
-          { path: "/login", element: <Login /> },
+          { path: "/", element: <Login /> },
           { path: "/signup", element: <Signup /> },
           {
             path: "/user",
