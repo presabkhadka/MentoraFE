@@ -6,14 +6,7 @@ import Signup from "./pages/auth/Signup";
 import { Toaster } from "react-hot-toast";
 import X from "./pages/view/X";
 import Youtube from "./pages/view/Youtube";
-import Try from "./pages/view/Try";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -23,7 +16,6 @@ export default function App() {
         <RouterProvider
           router={createBrowserRouter([
             { path: "/", element: <Login /> },
-            { path: "/try", element: <Try /> },
             { path: "/signup", element: <Signup /> },
             {
               path: "/user",

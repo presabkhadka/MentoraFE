@@ -99,11 +99,11 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-12 overflow-x-hidden">
-      <div className="col-span-1 md:col-span-2 h-full">
+    <div className="min-h-screen grid grid-cols-1 md:grid-cols-12 overflow-hidden">
+      <div className="col-span-1 md:col-span-2">
         <Sidebar />
       </div>
-      <div className="col-span-1 md:col-span-10 p-4 md:p-6 flex flex-col gap-8 md:gap-12">
+      <div className="col-span-1 md:col-span-10 p-4 md:p-6 flex flex-col gap-8 md:gap-12 overflow-hidden">
         <div className="flex justify-between items-center flex-wrap gap-4">
           <h1 className="text-2xl md:text-3xl font-bold">All Contents</h1>
           <div className="flex flex-wrap gap-2 items-center">
@@ -226,7 +226,7 @@ export default function Home() {
             </h1>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto max-h-[70vh]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-scroll max-h-[85vh]">
             {content.map((cnt) => (
               <div
                 key={cnt._id}
