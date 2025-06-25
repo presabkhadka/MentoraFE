@@ -124,7 +124,7 @@ export default function Home() {
 
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger
-                className="px-4 py-2 rounded-lg bg-blue-600 text-white flex gap-2 items-center text-base"
+                className="px-4 py-2 rounded-lg bg-blue-600 text-white flex gap-2 items-center text-base hover:cursor-pointer"
                 onClick={() => {
                   setIsDialogOpen(true);
                 }}
